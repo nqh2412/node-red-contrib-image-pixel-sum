@@ -1,0 +1,50 @@
+<script type="text/javascript">
+  RED.nodes.registerType('image-sum',{
+    category: 'myNodes',
+    color: '#abdbe3',
+    defaults: {
+      name: { value: '' },
+      source: { value: '' },
+    },
+    inputs:1,
+    outputs:1,
+    icon: "image-sum.png",
+    label: function() {
+      return this.name||"Pixel Sum";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="image-sum">
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-source"><i class="fa fa-globe"></i> Source</label>
+    <input type="text" id="node-input-source" placeholder="{{{payload}}}">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="image-sum">
+  <p>Receives a valid <a href="https://github.com/oliver-moran/jimp" target="_blank">JIMP</a> input and outputs an array with [R, G, B] sumimage-sum values for the image.</p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt class="optional">source <span class="property-type">string | buffer</span></dt>
+    <dd>String to local file (not recommended), remote image URL or image buffer.</dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">array</span></dt>
+    <dd>RGB values of the image sum.</dd>
+    <dt>stats <span class="property-type">object</span></dt>
+    <dd>Basic stats with pixels used and time (in secs) employed from fetch to result.</dd>
+  </dl>
+  <h3>Details</h3>
+  <p>The node uses, by default, the <code>msg.payload</code> as the source for the image, or the source field if present.</p>
+  <p>The input can be a string with a path to a local file (not recommended), a remote URL address, or be an image buffer (for example fetched by the http request node).</p>
+  <p>The <code>source</code> field allows <a href="http://mustache.github.io/mustache.5.html" target="_blank">mustache-style</a> tags to be constructed using values of the incoming message. For example, if the source is set to
+  <code>example.com/{{{topic}}}</code>, it will have the value of <code>msg.topic</code> automatically inserted.
+  Using {{{...}}} prevents mustache from escaping characters like / &amp; etc.</p>
+  <p><b>Note</b>: The node outputs the RGB values as a 3 item array in <code>msg.payload</code>.  It also outputs a convenient <code>msg.stats</code> object so you evaluate the performance impact.  The time (in secs) reported, consists of the combined time to fetch the image till the output is processed.  Use as small an image as possible, as even small 64 x 64 pixel images can take up to a second to compute, depending on your hardware.</p>
+</script>

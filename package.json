@@ -1,0 +1,27 @@
+{
+  "name": "node-red-contrib-image-sum",
+  "version": "0.1.2",
+  "description": "Node-RED function node that receives a valid JIMP input and outputs an array with [R, G, B] average values for the image",
+  "dependencies": {
+    "jimp": "^0.16.1",
+    "mustache": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nqh2412/node-red-contrib-image-sum"
+  },
+  "author": "nqh2412",
+  "license": "MIT",
+  "keywords": [
+    "node-red",
+    "jimp",
+    "image processing",
+    "image average",
+    "image-sum"
+  ],
+  "node-red": {
+    "nodes": {
+      "image-sum": "image-sum.js"
+    }
+  }
+}
